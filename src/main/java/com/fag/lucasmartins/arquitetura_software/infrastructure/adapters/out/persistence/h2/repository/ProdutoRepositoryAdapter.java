@@ -8,11 +8,11 @@ import com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.out.per
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProdutoRepositoryPortAdapter implements ProdutoRepositoryPort {
+public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
 
     private final ProdutoJpaRepository produtoJpaRepository;
 
-    public ProdutoRepositoryPortAdapter(ProdutoJpaRepository produtoJpaRepository) {
+    public ProdutoRepositoryAdapter(ProdutoJpaRepository produtoJpaRepository) {
         this.produtoJpaRepository = produtoJpaRepository;
     }
 
