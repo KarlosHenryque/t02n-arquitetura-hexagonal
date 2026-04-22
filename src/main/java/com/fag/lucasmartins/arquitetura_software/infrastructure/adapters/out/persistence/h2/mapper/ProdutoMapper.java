@@ -1,7 +1,7 @@
 package com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.out.persistence.h2.mapper;
 
-import com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.out.persistence.h2.entity.ProdutoEntity;
 import com.fag.lucasmartins.arquitetura_software.core.domain.bo.ProdutoBO;
+import com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.out.persistence.h2.entity.ProdutoEntity;
 
 public class ProdutoMapper {
 
@@ -9,7 +9,11 @@ public class ProdutoMapper {
     }
 
     public static ProdutoEntity toEntity(ProdutoBO produtoBO) {
-        ProdutoEntity produtoEntity = new ProdutoEntity();
+        if (produtoBO == null) {
+            return null;
+        }
+        final ProdutoEntity produtoEntity = new ProdutoEntity();
+        produtoEntity.setId(produtoBO.getId());
         produtoEntity.setNome(produtoBO.getNome());
         produtoEntity.setEstoque(produtoBO.getEstoque());
         produtoEntity.setPreco(produtoBO.getPreco());
@@ -19,7 +23,11 @@ public class ProdutoMapper {
     }
 
     public static ProdutoBO toBO(ProdutoEntity produtoEntity) {
-        ProdutoBO produtoBO = new ProdutoBO();
+        if (produtoEntity == null) {
+            return null;
+        }
+        final ProdutoBO produtoBO = new ProdutoBO();
+        produtoBO.setId(produtoEntity.getId());
         produtoBO.setNome(produtoEntity.getNome());
         produtoBO.setEstoque(produtoEntity.getEstoque());
         produtoBO.setPreco(produtoEntity.getPreco());

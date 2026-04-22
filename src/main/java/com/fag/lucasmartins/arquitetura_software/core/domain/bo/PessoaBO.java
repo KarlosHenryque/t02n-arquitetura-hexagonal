@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class PessoaBO {
 
-    private UUID id;
+    private Integer id;
 
     private String nomeCompleto;
 
@@ -24,7 +24,7 @@ public class PessoaBO {
     public PessoaBO() {
     }
 
-    public PessoaBO(UUID id, String nomeCompleto, String cpf, LocalDate dataNascimento, String email, String telefone) {
+    public PessoaBO(Integer id, String nomeCompleto, String cpf, LocalDate dataNascimento, String email, String telefone) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
@@ -86,11 +86,11 @@ public class PessoaBO {
         return s == null || s.trim().isEmpty();
     }
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

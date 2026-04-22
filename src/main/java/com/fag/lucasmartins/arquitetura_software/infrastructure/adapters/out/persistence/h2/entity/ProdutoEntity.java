@@ -8,7 +8,7 @@ public class ProdutoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     private String nome;
 
@@ -19,11 +19,11 @@ public class ProdutoEntity {
     private double precoFinal;
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getNome() {

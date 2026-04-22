@@ -1,7 +1,10 @@
 package com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.out.persistence.h2.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -9,7 +12,8 @@ import java.util.UUID;
 public class PessoaEntity {
 
     @Id
-    private UUID id;
+    @Type(type = "uuid-char")
+    private Integer id;
 
     private String nomeCompleto;
 
@@ -21,11 +25,14 @@ public class PessoaEntity {
 
     private String telefone;
 
-    public UUID getId() {
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PedidoEntity> pedidos;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

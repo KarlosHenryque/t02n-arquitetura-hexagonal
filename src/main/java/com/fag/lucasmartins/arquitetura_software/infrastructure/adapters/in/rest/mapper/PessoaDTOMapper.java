@@ -8,6 +8,9 @@ public class PessoaDTOMapper {
     private PessoaDTOMapper() {}
 
     public static PessoaBO toBo(PessoaDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         PessoaBO bo = new PessoaBO();
         bo.setId(dto.getId());
         bo.setNomeCompleto(dto.getNomeCompleto());
