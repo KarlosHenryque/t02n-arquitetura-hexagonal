@@ -1,7 +1,5 @@
 package com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.messaging.entradaPedido.listener;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fag.lucasmartins.arquitetura_software.application.ports.in.service.PedidoServicePort;
 import com.fag.lucasmartins.arquitetura_software.core.domain.bo.PedidoBO;
 import com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.messaging.entradaPedido.dto.SqsOrderEventDTO;
@@ -21,28 +19,20 @@ public class SqsPedidoAdapter {
         this.mapper = mapper;
     }
 
-    @SqsListener(value = "${queue.order-events}")
-    public void listen(String mensagem) {
+    @SqsListener("${queue.order-events}")
+    public void listen(SqsOrderEventDTO dto) {
 
-        System.out.println("Mensagem recebida da fila:");
-        System.out.println(mensagem);
+        System.out.println("Mensagem recebida: " + dto.getCustomerId());
 
-        try {
-            ObjectMapper mapperJson = new ObjectMapper();
-            mapperJson.registerModule(new JavaTimeModule());
+        PedidoBO criado = process(dto);
 
-            SqsOrderEventDTO dto =
-                    mapperJson.readValue(mensagem, SqsOrderEventDTO.class);
+        System.out.println("Pedido criado com sucesso: " + criado.getId());
+    }
 
-            PedidoBO pedidoBO = mapper.toBO(dto);
+    private PedidoBO process(SqsOrderEventDTO dto) {
 
-            PedidoBO criado = pedidoServicePort.criarPedido(pedidoBO);
+        PedidoBO pedidoBO = mapper.toBO(dto);
 
-            System.out.println("Pedido criado com sucesso. ID: " + criado.getId());
-
-        } catch (Exception e) {
-            System.out.println("Erro ao processar mensagem: " + e.getMessage());
-            e.printStackTrace();
-        }
+        return pedidoServicePort.criarPedido(pedidoBO);
     }
 }
